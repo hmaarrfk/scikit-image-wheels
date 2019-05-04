@@ -10,7 +10,18 @@ EXTRA_WHEELS_URL=https://5cf40426d9f06eb7461d-6fe47d9331aba7cd62fc36c7196769e4.s
 function pre_build {
     # Any stuff that you need to do before you start building the wheels
     # Runs in the root directory of this repository.
-    :
+
+    # remove numpy from the requirements files since pip doesn't like
+    # requirements appearing twice in one line
+    # matplotlib isn't built for 32bit, so we just specify 2.2.4 which is
+    # available in the wheelhouse
+    if [ -n "$IS_OSX" ]; then
+      sed -i '' '/numpy/d' scikit-image/requirements/default.txt
+      sed -i '' '/numpy/d' scikit-image/requirements/build.txt
+    else
+      sed -i '/numpy/d' scikit-image/requirements/default.txt
+      sed -i '/numpy/d' scikit-image/requirements/build.txt
+    fi
 }
 
 function pip_opts {
