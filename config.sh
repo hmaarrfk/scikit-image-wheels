@@ -26,7 +26,10 @@ function pre_build {
 
 function pip_opts {
     # Define extra pip arguments
-    echo "--find-links $EXTRA_WHEELS_URL"
+    # matplotlib doesn't have binaries for all versions
+    # the --prefer-binary asks pip to use binary wheels if they satisfy the
+    # version dependencies
+    echo "--prefer-binary --find-links $EXTRA_WHEELS_URL"
 }
 
 function build_wheel {
