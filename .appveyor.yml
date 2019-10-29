@@ -15,10 +15,7 @@ environment:
   DAILY_COMMIT: master
 
   matrix:
-    - PYTHON: C:\Python36
     - PYTHON: C:\Python36-x64
-    - PYTHON: C:\Python37
-    - PYTHON: C:\Python37-x64
 
 init:
   - "ECHO \"%APPVEYOR_SCHEDULED_BUILD%\""
@@ -54,7 +51,8 @@ install:
   # Install the build dependencies of the project.
   - pip install %NP_TEST_DEP%
   - pip install -r requirements\build.txt
-  - python setup.py bdist_wheel
+  - pip list
+  - python setup.py bdist_wheel -vv
   - ps: |
       # Upload artifact to Appveyor immediately after build
       ls dist -r | Foreach-Object {
@@ -80,6 +78,7 @@ test_script:
   # Check Python version just in case
   - python --version
   # Run unit tests with pytest
+  - pip list
   - pytest --pyargs skimage
   - cd ..
 
