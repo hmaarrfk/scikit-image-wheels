@@ -30,10 +30,10 @@ init:
         $env:CONTAINER = "wheels"
         $env:UPLOAD_ARGS = "--no-update-index"
       }
-  - git clone --depth 1 --branch master https://github.com/matthew-brett/multibuild.git
-  - git clone --depth 1 --branch %BUILD_COMMIT% https://github.com/scikit-image/scikit-image.git
 
 install:
+  - git clone --depth 1 --branch master https://github.com/matthew-brett/multibuild.git
+  - git clone --depth 1 --branch %BUILD_COMMIT% https://github.com/scikit-image/scikit-image.git
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
   # the parent CMD process).
